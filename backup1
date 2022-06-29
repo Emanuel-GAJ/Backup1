@@ -1,56 +1,53 @@
 
 while [ "$i" != "q" ]; do
         
-        echo 'a - Registrar uma máquina'
-        echo 'b - Registrar um usuário'
-        echo 'c - Realizar um backup'
-        echo 'd - Listar os backups'
-        echo 'e - Listar as máquinas salvas'
-        echo 'f - Listar os usuários salvos'
-        echo 'q - Sair do script'
+         echo 'a - Registrar uma máquina'
+         echo 'b - Registrar um usuário'
+         echo 'c - Realizar um backup'
+         echo 'd - Listar os backups'
+         echo 'e - Listar as máquinas salvas'
+         echo 'f - Listar os usuários salvos'
+         echo 'q - Sair do script'
     
-        read -p "Informe uma opção: " i
-
-        if [ "$i" == "a" ]; then
-                read -p "Informe o endereço IP da máquina: " ip
-                echo $ip >> conf1
-        fi
-        if [ "$i" == "b" ]; then
-                read -p "Informe o nome do usuário: " us
-                echo $us >> conf2
-        fi 
+         read -p "Informe uma opção: " i
+         
+         if [ "$i" == "a" ]; then
+                 read -p "Informe o endereço IP: " ip
+                 echo $ip >> conf1
+         fi
+         if [ "$i" == "b" ]; then
+                 read -p "Informe o nome do usuário: " us
+                 echo $us >> conf2
+         fi 
         
-        if [ "$i" == "c" ]; then
+         if [ "$i" == "c" ]; then
               
-                read -p "Informe o usuário: " u
+                 read -p "Informe o usuário: " u
 
-                read -p "Informe o IP da máquina: " ip
+                 read -p "Informe o IP da máquina: " ip
 
-                read -p "Informe o nome do arquivo: " arq
+                 read -p "Informe o nome do arquivo: " arq
 
-                read -p "Informe o diretório onde o backup será armazenado: " di
+                 read -p "Informe o diretório onde o backup será armazenado: " di
 
-                read -p "Informe o nome do arquivo de backup: " bk
+                 read -p "Informe o nome do arquivo de backup: " bk
 
-                scp ${u}@${ip}:$arq $di/$bk
+                 scp ${u}@${ip}:$arq $di/$bk
 
-        cd $di
-        da=$(date)
-        tar -czf $bk.$da.tar.gz $bk
-        rm $bk
-        cd ..
-        fi
-        if [ "$i" == "d" ]; then
-             read -p "Informe o diretório: " d2
-             cd $d2
-             ls -l *gz
-    
-        fi
-        if [ "$i" == "e" ]; then
-             cat conf1
-        fi
-        if [ "$i" == "f" ]; then
-             cat conf2
-        fi
-    
+          cd $di
+          tar -czf $bk.tar.gz $bk
+          rm $bk
+          cd ..
+         fi
+         if [ "$i" == "d" ]; then
+              read -p "Informe o diretório: " d2
+              cd $d2
+              ls -l *gz
+         fi
+         if [ "$i" == "e" ]; then
+              cat conf1
+         fi
+         if [ "$i" == "f" ]; then
+              cat conf2
+         fi      
 done
